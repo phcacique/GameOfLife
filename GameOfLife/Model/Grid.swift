@@ -97,21 +97,15 @@ class Grid{
             for j in 0..<height{
                 let n:[Cell] = getLiveNeighbors(cell: cells[i][j])
                 var newState:CellState = .dead
+                let oldState:CellState = cells[i][j].state
 
-                //TODO: apply the rules using the array of rules (fix the applying method
-//                for rule in rules {
-//                    newState = rule.applyToNewCell(state: cells[i][j].state, neighbors: n)
-//                }
-                
-                if cells[i][j].state == .dead && n.count == 3{
-                    newState = .alive
-                } else if cells[i][j].state == .alive && (n.count < 2 || n.count > 3) {
-                    newState = .dead
-                } else if cells[i][j].state == .alive && (n.count == 2 || n.count == 3) {
-                    newState = .alive
-                } else {
-                    newState = .dead
+                for rule in rules {
+                    newState = rule.apply(state: oldState, neighbors: n)
+                    if newState != oldState {
+                        break
+                    }
                 }
+                
                 newCells[i][j] = Cell(x: i, y: j, state: newState)
             }
         }

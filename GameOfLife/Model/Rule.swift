@@ -13,7 +13,7 @@ protocol Rule {
     var startState: CellState { get set }
     var endState: CellState { get set }
     
-    func applyToNewCell(state:CellState, neighbors:[Cell]) -> CellState
+    func apply(state:CellState, neighbors:[Cell]) -> CellState
 }
 
 class CountRule: Rule {
@@ -31,13 +31,15 @@ class CountRule: Rule {
         self.type = type
     }
     
-    func applyToNewCell(state:CellState, neighbors:[Cell]) -> CellState{
-        var newState:CellState = .dead
+    func apply(state:CellState, neighbors:[Cell]) -> CellState{
+        var newState:CellState = state
         if state == self.startState{
             if (self.type == .greaterThan && neighbors.count > self.count) ||
                 (self.type == .lessThan && neighbors.count < self.count) ||
                 (self.type == .equals && neighbors.count == self.count){
                 newState = self.endState
+            } else {
+                newState = state
             }
         }
         return newState
