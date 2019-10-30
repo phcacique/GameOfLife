@@ -14,8 +14,6 @@ class MainWindowController: NSWindowController {
     @IBOutlet weak var buttonClear: NSButton!
     @IBOutlet weak var buttonNextGen: NSButton!
     
-    
-    
     override func windowDidLoad() {
         super.windowDidLoad()
         buttonPlay.bezelColor = Theme.Colors.playButtonColor

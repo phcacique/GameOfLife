@@ -8,6 +8,7 @@
 
 import Foundation
 
+//MARK: - RULE PROTOCOL
 protocol Rule {
     var name: String { get set }
     var startState: CellState { get set }
@@ -16,6 +17,7 @@ protocol Rule {
     func apply(state:CellState, neighbors:[Cell]) -> CellState
 }
 
+//MARK: - COUNT RULE
 class CountRule: Rule {
     var name: String
     var startState: CellState
